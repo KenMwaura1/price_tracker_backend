@@ -36,7 +36,7 @@ make available via an API.
 3. Create a virtual environment
 
    ```shell
-      python3 -m venv venv 
+   python3 -m venv venv 
    ```
 
     * Activate the virtual environment
@@ -49,13 +49,13 @@ make available via an API.
 
   3a. Create a virtualenv
 
-   ```
-       pyenv virtualenv price_tracker_backend
+   ```shell
+   pyenv virtualenv price_tracker_backend
    ```
 
   3b. Activate the virtualenv
 
-   ```
+   ```shell
    pyenv activate price_tracker_backend
    ```
 
@@ -138,7 +138,7 @@ make available via an API.
    OR
    run with python
 
-```shell
+   ```shell
    python manage.py runserver
    ```
 ### To run the scrapy spider
@@ -159,7 +159,7 @@ make available via an API.
    ```
 * Test out the api: 
     ```shell
-          curl "http://localhost:9080/crawl.json?spider_name=jumia_spider&url=https://jumia.co.ke/"
+    curl "http://localhost:9080/crawl.json?spider_name=jumia_spider&url=https://jumia.co.ke/"
     ```
     
 
