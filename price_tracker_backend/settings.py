@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -81,17 +82,24 @@ WSGI_APPLICATION = 'price_tracker_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 MODE = os.environ.get('MODE', default="dev")
 DEBUG = os.environ.get('DEBUG', default=True)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': f'{os.environ.get("POSTGRES_DB_NAME")}',
-        'USER': f'{os.environ.get("POSTGRES_USER")}',
-        'PASSWORD': f'{os.environ.get("POSTGRES_PASSWORD")}',
-        'HOST': f'{os.environ.get("POSTGRES_DB_HOST")}',
-        'PORT': f'{os.environ.get("POSTGRES_DB_PORT")}',
+if MODE == "dev":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': f'{os.environ.get("POSTGRES_DB_NAME")}',
+            'USER': f'{os.environ.get("POSTGRES_USER")}',
+            'PASSWORD': f'{os.environ.get("POSTGRES_PASSWORD")}',
+            'HOST': f'{os.environ.get("POSTGRES_DB_HOST")}',
+            'PORT': f'{os.environ.get("POSTGRES_DB_PORT")}',
+        }
     }
-}
+    # ALLOWED_HOSTS = []
+# production
+else:
 
+    DATABASES = {
+        'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
