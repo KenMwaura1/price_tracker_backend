@@ -148,19 +148,19 @@ make available via an API.
    ```
 ### To Run Scrapd and use a web interface
 ```shell
-    cd price_scraper 
-    scrapyd
-   ```
+cd price_scraper 
+scrapyd
+ ```
 
 ### To run ScrapyRT and get a real time API
 ```shell
-    cd price_scraper 
-    scrapyrt
+cd price_scraper 
+scrapyrt
    ```
 * Test out the api: 
-    ```shell
-    curl "http://localhost:9080/crawl.json?spider_name=jumia_spider&url=https://jumia.co.ke/"
-    ```
+```shell
+ curl "http://localhost:9080/crawl.json?spider_name=jumia_spider&url=https://jumia.co.ke/"
+  ```
     
 
 ## Technologies used
