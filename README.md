@@ -143,9 +143,9 @@ make available via an API.
    ```
 ### To run the scrapy spider
 ```shell
-    cd price_scraper 
-    scrapy crawl jumia_spider
-   ```
+ cd price_scraper 
+ scrapy crawl jumia_spider
+ ```
 ### To Run Scrapd and use a web interface
 ```shell
 cd price_scraper 
