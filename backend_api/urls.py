@@ -10,8 +10,10 @@ urlpatterns = [
     path('announcements/', views.announce, name='track-announcements'),
     path('product/new/',  ProductCreateView.as_view(), name='product-create'),
     path('about/', views.about,name="track-about"),
-    
     path('product/<int:pk>/update/', ProductUpdateView.as_view(), name='product-update'),
     path('product/<int:pk>/delete/', ProductDeleteView.as_view(), name='product-delete'),
     path('user/<str:username>', UserProductListView.as_view(), name='user-products'),
+    path('^api/projects/$', views.ProductList.as_view(),name="all_projects_api"),
+    path('^api/profiles/$',views.ProfileList.as_view(),name="all_profiles_api"),
+
 ]
