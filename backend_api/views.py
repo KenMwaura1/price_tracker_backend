@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Product
+from .models import Product, Profile
 from django.contrib.auth.models import User
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
@@ -11,6 +11,10 @@ from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm 
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProductSerializer
+from django.http import JsonResponse
 
 
 def home(request):
@@ -274,7 +278,17 @@ def profile(request):
     
     return render(request,'users/profile.html',context)
 
+class ProductList(APIView):
+    def get(self,request,format=None):
+        all_products = Product.objects.all()
+        serializers = ProductSerializer(all_products,many=True)
+        return Response(serializers.data)
 
+class ProfileList(APIView):
+    def get(self,request,format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles,many=True)
+        return Response(serializers.data)
 
 
 
