@@ -77,7 +77,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'price_scraper.pipelines.PriceScraperPipeline': 300,
  }
-# DUPEFILTER_CLASS = 'price_scraper.middlewares.SeenURLFilter'
+DUPEFILTER_CLASS = 'price_scraper.middlewares.SeenURLFilter'
 DUPEFILTER_DEBUG = True
 # DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
 
