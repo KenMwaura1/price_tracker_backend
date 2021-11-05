@@ -17,6 +17,7 @@ from .serializer import ProfileSerializer,ProductSerializer
 from django.http import JsonResponse
 
 
+
 def home(request):
     context={
 
