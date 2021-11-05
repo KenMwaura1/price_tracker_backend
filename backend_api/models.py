@@ -14,6 +14,7 @@ class Profile(models.Model):
 	def __str__(self):
 		return f'{self.user.username} Profile'
 
+"""
 class Product(models.Model):
 	title=models.CharField(max_length=500)
 	current_price=models.FloatField(max_length=30)
@@ -29,3 +30,4 @@ class Product(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('user-products',args=[self.author.username])
+"""
