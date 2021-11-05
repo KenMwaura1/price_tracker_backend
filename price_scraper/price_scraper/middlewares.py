@@ -2,11 +2,15 @@
 #
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import hashlib
+import os
 
 from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+from scrapy.dupefilters import RFPDupeFilter
+from scrapy.utils.python import to_bytes
 
 
 class PriceScraperSpiderMiddleware:
@@ -33,8 +37,7 @@ class PriceScraperSpiderMiddleware:
         # it has processed the response.
 
         # Must return an iterable of Request, or item objects.
-        for i in result:
-            yield i
+        yield from result
 
     def process_spider_exception(self, response, exception, spider):
         # Called when a spider or process_spider_input() method
@@ -101,3 +104,16 @@ class PriceScraperDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class SeenURLFilter(RFPDupeFilter):
+    def __getid(self, url):
+        return url.split("/?page=2")[0]
+
+    def request_seen(self, request):
+        fp = self.__getid(request.url)
+        if fp in self.fingerprints:
+            return True
+        self.fingerprints.add(fp)
+        if self.file:
+            self.file.write(fp + os.linesep)
