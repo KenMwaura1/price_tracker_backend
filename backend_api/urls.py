@@ -8,6 +8,9 @@ from .views import (ProductListView, ProductCreateView, ProductUpdateView, Produ
 
 from rest_framework.routers import DefaultRouter
 from backend_api import views
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Price Tracker API')
 
 router = DefaultRouter()
 router.register('products', views.ProductViewSet)
@@ -29,7 +32,9 @@ urlpatterns = [
     path('api/products/', views.ProductList.as_view(), name="all_projects_api"),
     path('api/profiles/', views.ProfileList.as_view(), name="all_profiles_api"),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('api-docs/', schema_view, name="api-docs"),
     # path('logout/', views.LogoutView.as_view(), {"next_page": '/'}),
     path('api-token-auth/', obtain_auth_token),
+
 
 ]

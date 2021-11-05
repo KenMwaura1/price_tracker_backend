@@ -18,10 +18,12 @@ from .serializer import ProfileSerializer
 from django.http import JsonResponse
 from rest_framework import viewsets
 
+
 from .models import Product
 
 # Create your views here.
 from .serializers import ProductSerializer
+
 
 
 def index(request):
