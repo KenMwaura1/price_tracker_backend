@@ -10,7 +10,9 @@
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.abspath('.')))
+from scrapy.settings.default_settings import DUPEFILTER_CLASS
+
+sys.path.append('/home/zoo/Documents/Moringa-projects/price_tracker_backend')
 # add the project name to the path
 os.environ['DJANGO_SETTINGS_MODULE'] = 'price_tracker_backend.settings'
 
@@ -75,6 +77,9 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'price_scraper.pipelines.PriceScraperPipeline': 300,
  }
+# DUPEFILTER_CLASS = 'price_scraper.middlewares.SeenURLFilter'
+DUPEFILTER_DEBUG = True
+# DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
