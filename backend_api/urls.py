@@ -8,6 +8,6 @@ router.register('products', views.ProductViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('api', include(router.urls)),
+    path('api/', include(router.urls)),
 
 ]
