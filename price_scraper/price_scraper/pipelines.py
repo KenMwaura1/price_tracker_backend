@@ -10,11 +10,16 @@ from scrapy.exceptions import DropItem
 
 
 class PriceScraperPipeline:
+    def __init__(self):
+        self.names_seen = set()
+
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
-        if adapter.get('current_price'):
-            adapter.update({'current_price': adapter.get('current_price').replace('$', '')})
-            item.save()
-            return item
-        else:
+        if not adapter.get('current_price'):
             raise DropItem("Missing current_price in %s" % item)
+        # adapter.update({'current_price': adapter.get('current_price').replace('$', '')})
+        if adapter.get('name') in self.names_seen:
+            raise DropItem("Duplicate item found: %s" % item)
+        self.names_seen.add(adapter.get('name'))
+        item.save()
+        return item
