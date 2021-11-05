@@ -5,3 +5,10 @@ from .models import Product
 
 admin.site.register(Product)
 
+# from .models import Product
+from .models import Profile
+# Register your models here.
+
+
+admin.site.register(Profile)
+# admin.site.register(Product)
