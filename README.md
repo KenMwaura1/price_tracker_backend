@@ -8,6 +8,11 @@ make available via an API.
 
 ### **Note**: This project is a work in progress.
 
+## Front-End 
+The Angular frontend repo is found [here](https://github.com/LawiOtieno/price-tracker-frontend)
+### Live Front End
+Link to live [frontend](https://lawiotieno.github.io/price-tracker-frontend/home)
+
 ## Setup Instructions / Installation
 
 ### Getting Started
