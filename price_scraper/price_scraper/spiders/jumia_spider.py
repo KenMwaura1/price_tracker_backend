@@ -8,9 +8,9 @@ from ..items import PriceScraperItem
 class JumiaSpiderSpider(CrawlSpider):
     name = 'jumia_spider'
     allowed_domains = ['jumia.co.ke']
-    start_urls = ['https://www.jumia.co.ke/mlp-black-friday/',
-                  # 'https://www.jumia.co.ke/groceries/'
-                  ]
+    start_urls = ['https://www.jumia.co.ke',
+                  'https://www.jumia.co.ke/mlp-black-friday/',
+                  'https://www.jumia.co.ke/groceries/']
     total_pages = 40
     rules = [Rule(LinkExtractor(allow=r'page=\d+'), callback='parse_item', follow=True)]
 
