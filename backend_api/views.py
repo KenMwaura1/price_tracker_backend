@@ -1,4 +1,21 @@
 from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Product, Profile
+from django.contrib.auth.models import User
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
+from backend_api.models import Product
+from price_tracker_backend import settings
+from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer
+from django.http import JsonResponse
 from rest_framework import viewsets
 
 from .models import Product
@@ -16,23 +33,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import Product, Profile
-from django.contrib.auth.models import User
-from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib import messages
-from backend_api.models import Product
-from price_tracker_backend import settings
-from django.urls import reverse
-from django.contrib.auth.forms import UserCreationForm
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from django.contrib.auth.decorators import login_required
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializer import ProfileSerializer, ProductSerializer
-from django.http import JsonResponse
+
 
 
 def home(request):
@@ -75,11 +76,18 @@ class ProductCreateView(LoginRequiredMixin, CreateView):  # <app>/<model>_form.h
     def form_valid(self, form):
         f = self.new_product(form)
         if f == 1:
-            messages.success(self.request,
-                             f'Product Added successfully! We will notify you via email when price drop under your desire price')
+            messages.success(
+                self.request,
+                'Product Added successfully! We will notify you via email when price drop under your desire price',
+            )
+
             return HttpResponseRedirect(reverse('user-products', args=[self.request.user.username]))
         if f == 0:
-            messages.warning(self.request, f"Invalid URL or couldn't find proper price of product..try again")
+            messages.warning(
+                self.request,
+                "Invalid URL or couldn't find proper price of product..try again",
+            )
+
             return HttpResponseRedirect(reverse('user-products', args=[self.request.user.username]))
 
     def new_product(self, form):
@@ -255,7 +263,7 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created..!')
+            messages.success(request, 'Your account has been created..!')
             return redirect('login')
     else:
 
