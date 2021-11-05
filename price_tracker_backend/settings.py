@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'backend_api.apps.BackendApiConfig',
     'corsheaders',
+    'bootstrap5',
 
 ]
 
