@@ -1,3 +1,19 @@
+from django.shortcuts import render
+from rest_framework import viewsets
+
+from .models import Product
+
+# Create your views here.
+from .serializers import ProductSerializer
+
+
+def index(request):
+    return render(request, 'index.html')
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all().order_by('-date_added')
+    serializer_class = ProductSerializer
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Product, Profile
